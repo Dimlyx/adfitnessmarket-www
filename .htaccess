@@ -1,0 +1,89 @@
+# AD Fitness Market — hébergement OVH (Apache). Fichier généré par source/build_pages.py.
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Fichiers et dossiers cachés (.vercel, .gitignore…) et vercel.json : jamais servis
+RewriteRule (^|/)\. - [R=404,L]
+RewriteRule ^vercel\.json$ - [R=404,L]
+
+# HTTPS et adresse sans www (seulement sur le vrai domaine : l'adresse technique OVH sert aux tests)
+RewriteCond %{HTTP_HOST} ^(www\.)?adfitnessmarket\.com$ [NC]
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://adfitnessmarket.com%{REQUEST_URI} [R=301,L,NE]
+
+# Anciennes adresses du site WordPress (redirections permanentes)
+RewriteRule ^service\-apres\-vente/?$ /sav-depannage [R=301,L,NE]
+RewriteRule ^installation\-pro/?$ /installation [R=301,L,NE]
+RewriteRule ^montage\-et\-demontage/?$ /montage-demontage [R=301,L,NE]
+RewriteRule ^hotel/?$ /hotels [R=301,L,NE]
+RewriteRule ^entreprise/?$ /entreprises [R=301,L,NE]
+RewriteRule ^services\-entreprises/?$ /entreprises [R=301,L,NE]
+RewriteRule ^college\-et\-universite/?$ /etablissements-scolaires [R=301,L,NE]
+RewriteRule ^appareil\-medical/?$ /reeducation-medical [R=301,L,NE]
+RewriteRule ^centre\-bien\-etre/?$ /bien-etre [R=301,L,NE]
+RewriteRule ^home\-gym/?$ /particuliers [R=301,L,NE]
+RewriteRule ^nos\-services\-particulier/?$ /particuliers [R=301,L,NE]
+RewriteRule ^couverture\-geographique\-2/?$ /zone-intervention [R=301,L,NE]
+RewriteRule ^nos\-services\-professionnel/?$ /secteurs [R=301,L,NE]
+RewriteRule ^service/?$ /secteurs [R=301,L,NE]
+RewriteRule ^maintenance/?$ /maintenance-preventive [R=301,L,NE]
+RewriteRule ^renseignement\-devis/?$ /#contact [R=301,L,NE]
+RewriteRule ^contact/?$ /#contact [R=301,L,NE]
+RewriteRule ^mon\-compte/?$ / [R=301,L,NE]
+RewriteRule ^test/?$ / [R=301,L,NE]
+RewriteRule ^conditions\-generales\-de\-utilisation/?$ /cgu [R=301,L,NE]
+RewriteRule ^conditions\-generales\-de\-vente/?$ /cgv [R=301,L,NE]
+RewriteRule ^wp\-content/uploads/2022/09/CONDITIONS\-GENERALES\-D\-UTILISATION\.pdf/?$ /assets/legal/conditions-generales-utilisation.pdf [R=301,L,NE]
+RewriteRule ^wp\-content/uploads/2022/09/CONDITIONS\-GENERALES\-DE\-VENTE\.pdf/?$ /assets/legal/conditions-generales-vente.pdf [R=301,L,NE]
+RewriteRule ^sitemap_index\.xml/?$ /sitemap.xml [R=301,L,NE]
+RewriteRule ^page\-sitemap\.xml/?$ /sitemap.xml [R=301,L,NE]
+RewriteRule ^blocks\-sitemap\.xml/?$ /sitemap.xml [R=301,L,NE]
+RewriteRule ^wp\-sitemap\.xml/?$ /sitemap.xml [R=301,L,NE]
+RewriteRule ^blocks(/.*)?$ / [R=301,L,NE]
+RewriteRule ^feed/?$ / [R=301,L,NE]
+RewriteRule ^checkout/?$ / [R=301,L,NE]
+RewriteRule ^panier/?$ / [R=301,L,NE]
+RewriteRule ^cart/?$ / [R=301,L,NE]
+RewriteRule ^boutique/?$ / [R=301,L,NE]
+RewriteRule ^shop/?$ / [R=301,L,NE]
+
+# /index.html et /page.html → adresse propre
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?]
+RewriteRule ^ / [R=301,L]
+RewriteCond %{THE_REQUEST} \s/([^.\s?]+)\.html[\s?]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# Pas de / final
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [R=301,L,NE]
+
+# Adresses propres : /hotels sert hotels.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+</IfModule>
+
+# Fichiers compressés et mis en cache (vitesse de chargement)
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresDefault "access plus 1 hour"
+ExpiresByType text/html "access plus 0 seconds"
+ExpiresByType text/css "access plus 1 week"
+ExpiresByType image/jpeg "access plus 1 month"
+ExpiresByType image/png "access plus 1 month"
+ExpiresByType image/x-icon "access plus 1 month"
+ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

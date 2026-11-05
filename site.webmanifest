@@ -1,0 +1,14 @@
+{
+  "name": "AD Fitness Market",
+  "short_name": "AD Fitness",
+  "description": "Installation, maintenance et SAV multimarque d'équipements de fitness dans le sud-est.",
+  "lang": "fr",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f4f2ed",
+  "theme_color": "#121417",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
